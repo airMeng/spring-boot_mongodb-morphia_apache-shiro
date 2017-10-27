@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      database: db_contacts_book
+
+# Optional [Add these only if your MongoDB instance is secured]
+#      authentication-database: some-database
+#      username: some-contact
+#      password: secret
+
+# mongodb://borgymanotoy:P%40sudl%40k0_123@cluster0-shard-00-00-2xw8u.mongodb.net:27017,cluster0-shard-00-01-2xw8u.mongodb.net:27017,cluster0-shard-00-02-2xw8u.mongodb.net:27017/db_contacts_book?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin

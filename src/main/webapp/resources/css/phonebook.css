@@ -1,0 +1,211 @@
+body {
+    font-family: 'Ubuntu', sans-serif;
+    padding-top: 50px;
+}
+
+p.header-title {
+    font-size: 24px;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: left;
+    background-position: center center;
+    text-shadow: 0 1px 0 #ccc,
+        0 2px 0 #c9c9c9,
+        0 3px 0 #bbb,
+        0 4px 0 #b9b9b9,
+        0 5px 0 #aaa,
+        0 6px 1px rgba(0,0,0,.1),
+        0 0 5px rgba(0,0,0,.1),
+        0 1px 3px rgba(0,0,0,.3),
+        0 3px 5px rgba(0,0,0,.2),
+        0 5px 10px rgba(0,0,0,.25),
+        0 10px 10px rgba(0,0,0,.2),
+        0 20px 20px rgba(0,0,0,.15);
+}
+
+div.custom-search-form {
+    width: 500px;
+    margin-top: 9px;
+
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+.form-control {
+    border-radius: 2px;
+}
+
+div.custom-search-form > input {
+    font-size: 18px;
+}
+
+button.btn-search {
+    height: 35px;
+}
+
+div.navigation-panel, nav.navbar-inverse {
+    background-color: #2856b6 /*#03225d*/;
+    border-color: #2856b6;
+}
+
+div.phonebook-list {
+    margin-top: 50px;
+}
+
+span.contact-name {
+    font-size: 18px;
+    padding: 15px;
+    width: 320px;
+    display: inline-block;
+}
+
+span.contact-email {
+    font-size: 18px;
+    font-weight: normal;
+    padding: 15px;
+    width: 400px;
+    display: inline-block;
+}
+
+
+span.contact-numbers {
+    font-size: 18px;
+    font-weight: normal;
+    padding: 15px;
+    display: inline-block;
+}
+
+text-left {
+    text-align: left;
+}
+
+.caption-big {
+    font-size: 18px;
+}
+
+li.list-group-item:hover {
+    background-color: #a9bdf5;
+    font-weight: bold;
+}
+i.fa { margin-right: 5px; }
+
+/* Buttons */
+.btn {
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    background-color: #eeeeee;
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    outline: 0;
+    padding: 0 2rem;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    letter-spacing: .5px;
+    transition: .2s ease-out;
+}
+
+.btn-default, .btn-primary {
+    color: #e4dede !important;
+    background-color: #1b2a54 !important;
+}
+
+.btn-danger {
+    color: #e4dede !important;
+    background-color: #e74c3c !important;
+}
+
+
+/* Modal */
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+.modal.fade .modal-dialog {
+    -webkit-transform: scale(0.1);
+    -moz-transform: scale(0.1);
+    -ms-transform: scale(0.1);
+    transform: scale(0.1);
+    top: 300px;
+    opacity: 0;
+    -webkit-transition: all 0.1s;
+    -moz-transition: all 0.1s;
+    transition: all 0.1s;
+}
+
+.modal.fade.in .modal-dialog {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform: translate3d(0, -300px, 0);
+    transform: translate3d(0, -300px, 0);
+    opacity: 1;
+}
+
+
+/* Form Fields */
+.input-group {
+    margin-top: 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+#btnAddContact {
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 20px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #1abc9c;
+    color: white;
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 20px; /* Some padding */
+    border-radius: 50%;
+    font-size: 30px;
+    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);*/
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.3), 0 2px 10px 0 rgba(0,0,0,0.3);
+}
+
+#btnAddContact:hover {
+    background-color: #16a085;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5), 0 2px 10px 0 rgba(0,0,0,0.5);
+}
+
+button.addNewContact {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 0.6;
+    letter-spacing: normal;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    display: inline-block;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    content: '\e145';
+}
