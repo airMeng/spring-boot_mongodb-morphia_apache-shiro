@@ -7,6 +7,8 @@ import com.sample.rest.demo.springbootrest.models.User;
 import com.sample.rest.demo.springbootrest.services.RoleService;
 import com.sample.rest.demo.springbootrest.services.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -31,27 +34,6 @@ public class PageController {
     @Autowired
     private RoleService roleService;
 
-//    @Autowired
-//    private SecurityService securityService;
-
-
-
-//    @GetMapping(value = "/")
-//    public String index() {
-//        return "login";
-//    }
-
-//    @GetMapping(value = "/login")
-//    public String login(@RequestParam(value = "error", required = false) boolean hasError, ModelMap map) {
-//        String msg = null;
-//        if(hasError){
-//            msg = "Invalid user/password!";
-//            map.addAttribute("hasError", hasError);
-//            map.addAttribute("msg", msg);
-//        }
-//
-//        return "login";
-//    }
 
     @GetMapping(value = "/register")
     public String register(@RequestParam(value = "error", required = false) boolean hasError, ModelMap map) {
@@ -72,7 +54,7 @@ public class PageController {
     public String registerUser(@RequestParam(value = "username", required = false, defaultValue = "") String username,
                                @RequestParam(value = "password", required = false, defaultValue = "") String password,
                                @RequestParam(value = "verifyPassword", required = false, defaultValue = "") String verifyPassword,
-                               ModelMap map) {
+                               RedirectAttributes redirectAttributes) {
 
         System.out.println("\n\n");
         System.out.println("GET-MAPPING-REGISTER");
@@ -113,37 +95,32 @@ public class PageController {
             msgState.setMessage("Please fill-up all the registration fields.");
         }
 
-        map.addAttribute("status", msgState);
+        redirectAttributes.addFlashAttribute("status", msgState);
         if("ERROR".equalsIgnoreCase(msgState.getCode())){
-
-            System.out.println("\n\n");
-            System.out.println("-----------------------");
-            System.out.println("O.M.G. NAAY ERROR!!!");
-            System.out.println("-----------------------");
-            System.out.println("\n\n");
-
-            map.addAttribute("username", username);
-            map.addAttribute("password", password);
-            map.addAttribute("verifyPassword", verifyPassword);
-            map.addAttribute("hasError", true);
-            map.addAttribute("statusMessage", msgState.getMessage());
-
+            redirectAttributes.addFlashAttribute("username", username);
+            redirectAttributes.addFlashAttribute("password", password);
+            redirectAttributes.addFlashAttribute("verifyPassword", verifyPassword);
+            redirectAttributes.addFlashAttribute("errorText", msgState.getMessage());
             return null;
         }
-//        else if("OK".equalsIgnoreCase(msgState.getCode())) {
-//            if(null == securityService.findLoggedInUsername()) {
-//                if (securityService.autologin(username, password))
-//                    return "redirect:/home";
-//                else {
-//                    map.addAttribute("username", username);
-//                    map.addAttribute("password", password);
-//                    map.addAttribute("verifyPassword", verifyPassword);
-//                    map.addAttribute("hasError", true);
-//                    map.addAttribute("statusMessage", "Authentication failed!");
-//                    return null;
-//                }
-//            }
-//        }
+        else if("OK".equalsIgnoreCase(msgState.getCode())) {
+            UsernamePasswordToken upt = new UsernamePasswordToken(username, password);
+            Subject subject = SecurityUtils.getSubject();
+
+            try {
+                subject.login(upt);
+            }
+            catch (AuthenticationException ae){
+                ae.printStackTrace();
+                redirectAttributes.addFlashAttribute("username", username);
+                redirectAttributes.addFlashAttribute("password", password);
+                redirectAttributes.addFlashAttribute("verifyPassword", verifyPassword);
+                redirectAttributes.addFlashAttribute("errorText", "Invalid user/password!");
+                return "redirect:/login";
+            }
+
+            return "redirect:/home";
+        }
 
         return null;
     }
@@ -162,8 +139,9 @@ public class PageController {
 
     @GetMapping(value = "/profile")
     public String profile(ModelMap model) {
-//        User user = this.userService.findByUsername(authentication.getName());
-//        model.addAttribute("userInfo", user);
+        Subject subject = SecurityUtils.getSubject();
+        User user = this.userService.findByUsername(subject.getPrincipal().toString());
+        model.addAttribute("userInfo", user);
         return "profile";
     }
 

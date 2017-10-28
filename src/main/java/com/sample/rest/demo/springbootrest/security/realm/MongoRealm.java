@@ -1,6 +1,7 @@
-package com.sample.rest.demo.springbootrest.configs;
+package com.sample.rest.demo.springbootrest.security.realm;
 
 import com.sample.rest.demo.springbootrest.models.User;
+import com.sample.rest.demo.springbootrest.security.matchers.BcryptCredentialsMatcher;
 import com.sample.rest.demo.springbootrest.services.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -16,6 +17,13 @@ public class MongoRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
+
+    public MongoRealm(){
+        BcryptCredentialsMatcher credentialsMatcher = new BcryptCredentialsMatcher();
+        setCredentialsMatcher(credentialsMatcher);
+    }
+
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //Intentionally blank
@@ -24,19 +32,10 @@ public class MongoRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-
-        System.out.println("\n\n");
-        System.out.println("AUTHENTICATION");
-        System.out.println("---------------------------------------------");
-        System.out.println("[PRINCIPAL]: " + authenticationToken.getPrincipal().toString());
-        System.out.println("---------------------------------------------");
-        System.out.println("\n\n");
-
         User user = userService.findByUsername(authenticationToken.getPrincipal().toString());
-        if(null!=user){
+        if(null!=user)
             return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getClass().getName());
-        }
-        else
-            throw new AuthenticationException();
+
+        throw new AuthenticationException("Invalid User/Password!");
     }
 }

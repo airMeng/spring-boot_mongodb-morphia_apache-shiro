@@ -1,8 +1,6 @@
 package com.sample.rest.demo.springbootrest;
 
-import com.sample.rest.demo.springbootrest.configs.MongoRealm;
-import org.apache.shiro.cache.CacheManager;
-import org.apache.shiro.cache.MemoryConstrainedCacheManager;
+import com.sample.rest.demo.springbootrest.security.realm.MongoRealm;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
@@ -14,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.sample.rest.demo.springbootrest")
@@ -38,14 +36,14 @@ public class SpringBootRestApplication extends SpringBootServletInitializer {
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
         // use permissive to NOT require authentication, our controller Annotations will decide that
+        chainDefinition.addPathDefinition("/register/**", "anon");
+        chainDefinition.addPathDefinition("/css/**", "anon");
+        chainDefinition.addPathDefinition("/js/**", "anon");
+        chainDefinition.addPathDefinition("/fonts/**", "anon");
+        chainDefinition.addPathDefinition("/images/**", "anon");
+        chainDefinition.addPathDefinition("/favicon.ico", "anon");
         chainDefinition.addPathDefinition("/**", "authc");
         return chainDefinition;
-    }
-
-    @Bean
-    public CacheManager cacheManager() {
-        // Caching isn't needed in this example, but we will use the MemoryConstrainedCacheManager for this example.
-        return new MemoryConstrainedCacheManager();
     }
 
     public static void main(String[] args) {

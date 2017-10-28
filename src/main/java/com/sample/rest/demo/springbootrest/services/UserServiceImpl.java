@@ -2,8 +2,8 @@ package com.sample.rest.demo.springbootrest.services;
 
 import com.sample.rest.demo.springbootrest.models.User;
 import com.sample.rest.demo.springbootrest.repositories.UserRepository;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +13,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> list(String search) {
@@ -45,8 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean verifyPassword(String username, String currentPassword) {
         User user = this.userRepository.getUser(username);
-        //return passwordEncoder.matches(currentPassword, user.getPassword());
-        return true;
+        return BCrypt.checkpw(currentPassword, user.getPassword());
     }
 
 }
