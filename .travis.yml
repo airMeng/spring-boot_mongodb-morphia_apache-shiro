@@ -5,4 +5,4 @@ deploy:
  provider: heroku
  api-key:
   secure: $HEROKU_API_KEY
- app: spring-boot_mongodb-morphia_apache-shiro
+ app: spring-boot-morphia-shiro
