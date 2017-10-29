@@ -37,15 +37,9 @@ public class AutoLoginTest extends SpringBootRestApplicationTests {
 
         roles = this.roleService.list();
 
-        if(null==this.userService.list(null) || 0 == this.userService.list(null).size()){
-            User user = new User("test_user", "test");
-            user.setRoles(roles);
-
-            System.out.println("[USER]: " + user.toString());
-            System.out.println("[VALID]: " + user.validate());
-
-            this.userService.save(user);
-        }
+        User user = new User("test_user", "test");
+        user.setRoles(roles);
+        this.userService.save(user);
     }
 
     @Test
