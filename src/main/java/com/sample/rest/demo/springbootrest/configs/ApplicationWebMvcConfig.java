@@ -18,6 +18,9 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 public class ApplicationWebMvcConfig extends WebMvcConfigurerAdapter {
 
+    private final static String DB_CONNSTR_ATLAST = "mongodb://borgymanotoy:P%40sudl%40k0_123@cluster0-shard-00-00-2xw8u.mongodb.net:27017,cluster0-shard-00-01-2xw8u.mongodb.net:27017,cluster0-shard-00-02-2xw8u.mongodb.net:27017/db_capstone?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin";
+    private final static String DB_CONNSTR_LOCAL = "mongodb://localhost/db_contacts_book";
+
     // Inject an instance of Spring-Boot MongoProperties
     @Autowired
     private MongoProperties mongoProperties;
@@ -55,11 +58,6 @@ public class ApplicationWebMvcConfig extends WebMvcConfigurerAdapter {
         resolver.setViewClass(JstlView.class);
         return resolver;
     }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
