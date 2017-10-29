@@ -28,7 +28,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a id="aBrand" class="navbar-brand text-capitalize" href="#"><img src="images/logo.png" class="logo" alt="logo"><span class="brand-name">Contacts</span></a>
+                    <a id="aBrand" class="navbar-brand text-capitalize" href="/home"><img src="images/logo.png" class="logo" alt="logo"><span class="brand-name">Contacts</span></a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">

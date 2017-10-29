@@ -30,14 +30,13 @@ public class ShiroSpringController {
 
         try {
             subject.login(upt);
+            return "redirect:/home";
         }
         catch (AuthenticationException ae){
             ae.printStackTrace();
             redirectAttributes.addFlashAttribute("errorText", "Invalid user/password!");
             return "redirect:/login";
         }
-
-        return "redirect:/home";
     }
 
     @RequestMapping("logout")
